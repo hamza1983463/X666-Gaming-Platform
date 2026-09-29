@@ -1,0 +1,16 @@
+site_name: H666 Gaming Platform
+site_description: Interactive Color Prediction Gaming Platform
+site_author: hamza1983463
+repo_url: https://github.com/hamza1983463/X666-Gaming-Platform
+edit_uri: ""
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: amber
+    accent: green
+  features:
+    - navigation.instant
+    - search.suggest
+nav:
+  - Home: index.md
