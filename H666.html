@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H666 Gaming Platform</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .balance {
+            background: #059669;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .game-container {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-red { background: #dc2626; color: white; }
+        .btn-green { background: #16a34a; color: white; }
+        .btn-play { background: #f59e0b; color: white; width: 100%; margin-top: 10px; }
+        button:hover { opacity: 0.9; }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>H666 Game</h2>
+        <div class="balance">Balance: PKR <span id="user-balance">1000</span></div>
+    </div>
+
+    <div class="game-container">
+        <h1>Color Prediction</h1>
+        <p>Choose Red or Green to play</p>
+        
+        <div class="btn-group">
+            <button class="btn-red" onclick="selectColor('Red')">Red</button>
+            <button class="btn-green" onclick="selectColor('Green')">Green</button>
+        </div>
+        
+        <p>Selected: <span id="selected-choice" style="color: #f59e0b; font-weight: bold;">None</span></p>
+        
+        <input type="number" id="bet-amount" placeholder="Enter Amount" value="100" style="width: 100%; padding: 10px; margin-top: 15px; border-radius: 5px; border: none; text-align: center; font-size: 16px;">
+        
+        <button class="btn-play" onclick="playGame()">Play Now</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let balance = 1000;
+        let chosenColor = "";
+
+        function selectColor(color) {
+            chosenColor = color;
+            document.getElementById("selected-choice").innerText = color;
+        }
+
+        function playGame() {
+            let bet = parseInt(document.getElementById("bet-amount").value);
+            let resultDiv = document.getElementById("result");
+
+            if (!chosenColor) {
+                alert("Pehle Red ya Green select karein!");
+                return;
+            }
+            if (isNaN(bet) || bet <= 0) {
+                alert("Sahi amount enter karein!");
+                return;
+            }
+            if (bet > balance) {
+                alert("Aap ke paas itna balance nahi hai!");
+                return;
+            }
+
+            // Random result (Red or Green)
+            let colors = ["Red", "Green"];
+            let winningColor = colors[Math.floor(Math.random() * colors.length)];
+
+            if (chosenColor === winningColor) {
+                balance += bet;
+                resultDiv.style.color = "#16a34a";
+                resultDiv.innerText = ` Mubarak ho! Winner color: ${winningColor}. Aap jeet gaye!`;
+            } else {
+                balance -= bet;
+                resultDiv.style.color = "#dc2626";
+                resultDiv.innerText = ` Afsos! Winner color: ${winningColor}. Aap haar gaye!`;
+            }
+
+            document.getElementById("user-balance").innerText = balance;
+        }
+    </script>
+
+</body>
+</html>
